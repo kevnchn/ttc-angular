@@ -1,0 +1,88 @@
+<!--index.html-->
+
+<html ng-app="TTCOnboarding" ng-controller="mainCtrl">
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/core.js"></script>
+		<title>{{title}}</title>
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+	    <link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+			<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">TTC Onboarding</a>
+				</div>
+			</div><!-- /.container-fluid -->
+		</nav>
+		<div id="container">
+			<h1>{{blog_title}}</h1>
+			<table class="table table-hover tb">
+				<tr class="trow">
+					<th>ID
+					</th>
+					<th>Username
+					</th>
+					<th>Settings
+					</th>
+				</tr>
+				<tr class="trow" ng-repeat="blog in blogs">
+					<td>
+						{{blog.id}}
+					</td>
+					<td>
+						<a ng-click="changeBlog(blog)">{{blog.username}}</a>
+					</td>
+					<td><button class="btn-danger btn" ng-click="deleteBlog(blog)">Delete</button>
+					</td>
+				</tr>
+			</table>
+
+
+			<table class="table table-hover tb">
+				<tr class="trow">
+					<th>ID
+					</th>
+					<th>Post Text
+					</th>
+					<th>Username ID
+					</th>
+					<th>Settings
+					</th>
+				</tr>
+				<tr class="trow" ng-repeat="post in post_blog">
+					<td>
+						{{post.id}}
+					</td>
+					<td>
+						{{post.text}}
+					</td>
+					<td>
+						{{post.blog_id}}
+					</td>
+					<td><button class="btn-danger btn" ng-click="deletePost(post)">Delete</button>
+					</td>
+				</tr>
+
+			</table>
+			<form>
+				<input type="text" ng-model="new_blog.username" placeholder="Username"></input>
+				<button ng-click="newBlog(new_blog)" class="btn btn-primary">Submit</button>
+			</form>
+			<form>
+				<input type="text" ng-model="new_post.text" placeholder="Enter Your Post here"></input>
+				<button ng-click="newPost(new_post)" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	</body>
+</html>

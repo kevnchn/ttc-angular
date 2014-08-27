@@ -1,0 +1,24 @@
+.trow{
+	width:40px;
+	text-align: center;
+}
+
+th{
+	text-align: center;
+}
+
+.tb{
+	max-width: 900px;
+
+}
+
+td{
+	vertical-align: middle;
+}
+
+#container{
+	margin-top: 70px;
+	width:1000px;
+	margin-right: auto;
+	margin-left: auto;	 
+}
