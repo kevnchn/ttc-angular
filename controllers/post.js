@@ -7,7 +7,8 @@ var postSchema = new Schema({
     	type: String,
     	trim: true
     },
-    blog_id: String
+    blog_id: String,
+    img: String
 });
 
 module.exports = mongoose.model('Post', postSchema);

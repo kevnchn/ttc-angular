@@ -22,3 +22,17 @@ td{
 	margin-right: auto;
 	margin-left: auto;	 
 }
+
+.imagedrop{
+	width: 200px;
+	height: 200px;
+	text-align: center;
+	padding:20px;
+	background-color: #efefef;
+	border: 5px dashed #d3d3d3;
+	border-radius: 15px;
+}
+
+.dragover{
+	border: 5px dashed black;
+}

@@ -2,9 +2,13 @@
 
 <html ng-app="TTCOnboarding" ng-controller="mainCtrl">
 	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="lib/angular-file-upload-shim.js"></script> 
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+		<script src="lib/angular-file-upload.js"></script> 
 		<script type="text/javascript" src="js/core.js"></script>
+		<script type="text/javascript" src="js/directives.js"></script>
+
 		<title>{{title}}</title>
 	    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
@@ -47,8 +51,6 @@
 					</td>
 				</tr>
 			</table>
-
-
 			<table class="table table-hover tb">
 				<tr class="trow">
 					<th>ID
@@ -58,6 +60,8 @@
 					<th>Username ID
 					</th>
 					<th>Settings
+					</th>
+					<th>Image
 					</th>
 				</tr>
 				<tr class="trow" ng-repeat="post in post_blog">
@@ -70,19 +74,39 @@
 					<td>
 						{{post.blog_id}}
 					</td>
+					
 					<td><button class="btn-danger btn" ng-click="deletePost(post)">Delete</button>
 					</td>
+					<td>
+						<div ng-if="post.img">
+							<img src="{{post.img}}" style="width:60px;"></img>
+						</div>
+						<div ng-if="!post.img">
+							No Image
+						</div>
+					</td>
 				</tr>
-
 			</table>
-			<form>
+			<!-- <form>
 				<input type="text" ng-model="new_blog.username" placeholder="Username"></input>
 				<button ng-click="newBlog(new_blog)" class="btn btn-primary">Submit</button>
-			</form>
-			<form>
-				<input type="text" ng-model="new_post.text" placeholder="Enter Your Post here"></input>
+			</form> -->
+<!-- 			<form action="", method="post", enctype="multipart/form-data">
+				<input type="text" ng-model="new_post.text" maxLength="160" placeholder="Enter Your Post here">
+				<input type="file" fileread="new_post.img"/>
+ 				<input type="text" ng-model="new_post.img" style="display:none"/>
 				<button ng-click="newPost(new_post)" class="btn btn-primary">Submit</button>
-			</form>
+			</form> -->
+
+				<form enctype="multipart/form-data">
+					 <input type="text" ng-model="new_post.url"/>
+					 <input type="text" ng-model="new_post.text"/>
+
+					<input type="submit" ng-click="newPost(new_post)" class="btn btn-primary">
+				</form>
+			</div>
+
+
 		</div>
 	</body>
 </html>

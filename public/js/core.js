@@ -1,12 +1,12 @@
-var ttc_onboarding = angular.module('TTCOnboarding', []);
+var ttc_onboarding = angular.module('TTCOnboarding', ['directives', 'angularFileUpload']);
 
-function mainCtrl($scope, $http) {
-	$scope.title = "Cool App";
+function mainCtrl($scope, $http, $upload) {
+	$scope.title = "Micro-Blog";
 	$scope.browse_blog_id = null;
 	$scope.new_post = {};
 	$scope.new_blog = {};
 	$scope.post_blog = [];
-
+	$scope.files = {};
 	initialize();
 	function initialize(){
 		$http.get('/api/blogs').success(function(data) {
@@ -88,4 +88,22 @@ function mainCtrl($scope, $http) {
 		$http.delete('api/posts/delete/'+post.id);
 	}
 
+	$scope.filesChanged = function(elm){
+		$scope.files = elm.files;
+		console.log($scope.files);
+	}
+
 };
+
+
+function MyCtrl ($scope, $upload, $http) {
+  $scope.onFileSelect = function($file) {
+  	var file = $file;
+   $http.post('api/posts/add', file).success(function(){
+			console.log('success');
+		}).error(function(err){
+			console.log(err);
+		});
+  };
+};
+
