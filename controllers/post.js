@@ -8,7 +8,8 @@ var postSchema = new Schema({
     	trim: true
     },
     blog_id: String,
-    img: String
+    img: String,
+    date: { type : Date, default : Date.now }
 });
 
 module.exports = mongoose.model('Post', postSchema);

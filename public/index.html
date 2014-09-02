@@ -3,21 +3,103 @@
 <html ng-app="TTCOnboarding" ng-controller="mainCtrl">
 	<head>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="lib/angular-file-upload-shim.js"></script> 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-		<script src="lib/angular-file-upload.js"></script> 
 		<script type="text/javascript" src="js/core.js"></script>
 		<script type="text/javascript" src="js/directives.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/ui-bootstrap-tpls.min.js"></script>
+		<script type="text/javascript" src="lib/moment.js"></script>
 
 		<title>{{title}}</title>
 	    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+	    <link rel="stylesheet" type="text/css" href="css/styles.css">
 	    <link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
 	<body>
-		<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+	    <script type="text/ng-template" id="NewPostModal.html">
+	   		<div>
+	        <div class="modal-header">
+	            <h3>New Post</h3>
+	            <div>{{blog_id}}</div>
+	        </div>
+	        <div class="modal-body">
+	        	<form enctype="multipart/form-data" id="noRedirect" action="api/posts/add" method="POST">
+					 <input type="text" name="newposttext"  maxlength="160"/>
+					 <input id="fileupload" type="file" name="file">
+					 <input id="blogid" ng-value="blog_id" name="blogid" type="hidden" >
+					<input type="submit" class="btn btn-primary">
+				</form>
+	        </div>
+	        </div>
+	    </script>
+	    <script>
+	    	$('#noRedirect').submit(function () {
+			 return false;
+			});
+	    </script>
+
+	    <div class="wrapper">
+		    <div class="box">
+		        <div class="row">
+		            <!-- sidebar -->
+		            <div class="column col-sm-3" id="sidebar">
+		                <a class="logo" href="#">K</a>
+		                <ul class="nav">
+		                	<li ng-repeat="blog in blogs" ><a ng-click ="changeBlog(blog)">{{blog.username}}</a>
+		                	</li>
+		                	<li><a ng-click="newblogisCollapsed = !newblogisCollapsed">+ New Blog</a>
+		                	</li>
+		            		<li >
+		            			<form collapse="newblogisCollapsed" style="color:black;">					 
+		            				<input type="text" ng-model="new_blog.username">
+		            				<button ng-click="newBlog(new_blog)" class="btn btn-primary">Create</button>
+								</form>
+							</li>
+		                </ul>
+		            </div>
+		            <!-- /sidebar -->
+		          
+		            <!-- main -->
+		            <div class="column col-sm-9" id="main">
+		                <div class="padding">
+		                    <div class="full col-sm-9">
+		                        <!-- content -->
+
+		                        <div class="col-sm-12" id="featured">
+		                        <h1>{{blog_title}}</h1>	   
+		                          <div class="page-header text-muted">
+		                          Posts
+		                          </div> 
+		                        </div>
+		                        
+		                        <!--/top story-->
+		                        <div class="row"> 
+
+		                       	   <div class="col-sm-12">
+		                       	   		<button class="btn btn-primary btn-large" ng-click="openPostModal()">New Post</button> 
+		                       	   </div>
+		                          <div class="col-sm-12" ng-repeat="post in post_blog">
+		                          	
+		                            <h3 style="font-weight: 200;">{{post.text}}</h3>
+		                            <img style="width:100%;" ng-src="downloads/{{post.img}}" />
+
+		                            <!-- <img src="{{post.img}}" style="width:100%"/> -->
+		                            <small class="text-muted">Posted on {{post.content_date}} <a ng-click="deletePost(post)">Delete</a></small>
+		                          </div>
+
+		                        </div>
+		                    </div><!-- /col-9 -->
+		                </div><!-- /padding -->
+		            </div>
+		            <!-- /main -->
+		          
+		        </div>
+		    </div>
+		</div>
+
+<!-- 		<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
 			<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle navigation</span>
@@ -27,11 +109,26 @@
 					</button>
 					<a class="navbar-brand" href="#">TTC Onboarding</a>
 				</div>
-			</div><!-- /.container-fluid -->
+			</div>
 		</nav>
 		<div id="container">
-			<h1>{{blog_title}}</h1>
-			<table class="table table-hover tb">
+			<div>
+				<h1>{{blog_title}}</h1>
+				
+			</div>
+			<div class="BlogPosts" >
+				<section class="col-md-2"></section>
+				<section class="col col-md-8" >
+					<div class="PostCard" ng-repeat="post in post_blog">
+					<span class="PostText">{{post.text}}</span>
+						<div ng-if="post.img!=undefined">
+							<img style="width:100%;"  src="{{post.img}}" class="PostImage">
+						</div>
+					</div>
+				</section>
+				<section class="col-md-2"></section>
+			</div> -->
+<!-- 			<table class="table table-hover tb">
 				<tr class="trow">
 					<th>ID
 					</th>
@@ -86,11 +183,8 @@
 						</div>
 					</td>
 				</tr>
-			</table>
-			<!-- <form>
-				<input type="text" ng-model="new_blog.username" placeholder="Username"></input>
-				<button ng-click="newBlog(new_blog)" class="btn btn-primary">Submit</button>
-			</form> -->
+			</table> -->
+			<!--  -->
 <!-- 			<form action="", method="post", enctype="multipart/form-data">
 				<input type="text" ng-model="new_post.text" maxLength="160" placeholder="Enter Your Post here">
 				<input type="file" fileread="new_post.img"/>
@@ -98,13 +192,8 @@
 				<button ng-click="newPost(new_post)" class="btn btn-primary">Submit</button>
 			</form> -->
 
-				<form enctype="multipart/form-data">
-					 <input type="text" ng-model="new_post.url"/>
-					 <input type="text" ng-model="new_post.text"/>
-
-					<input type="submit" ng-click="newPost(new_post)" class="btn btn-primary">
-				</form>
-			</div>
+				
+			<!-- </div> -->
 
 
 		</div>

@@ -1,3 +1,7 @@
+body{
+	background-color: #efefef;
+}
+
 .trow{
 	width:40px;
 	text-align: center;
@@ -20,7 +24,8 @@ td{
 	margin-top: 70px;
 	width:1000px;
 	margin-right: auto;
-	margin-left: auto;	 
+	margin-left: auto;	
+	text-align: center; 
 }
 
 .imagedrop{
@@ -35,4 +40,12 @@ td{
 
 .dragover{
 	border: 5px dashed black;
+}
+
+.PostCard{
+	border: 1px solid #d3d3d3;
+	padding: 10px;
+	text-align: left;
+	margin-bottom: 10px;
+	background-color: white;
 }
